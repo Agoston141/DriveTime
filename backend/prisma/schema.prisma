@@ -18,7 +18,8 @@ model Student {
   name       String
   password   String
   email      String
-  bookeddate DateTime
+ 
+  bookings  Booking[] // Kapcsolat a foglalásokkal
 }
 
 model Instructor {
@@ -26,12 +27,18 @@ model Instructor {
   name       String
   password   String
   email      String
-  imageUrl   String
-  bookeddate DateTime
+  bookings  Booking[] // Kapcsolat a foglalásokkal
 }
 
-model Admin {
-  id       Int    @id @default(autoincrement())
-  password String
-  email    String
+model Booking {
+  id           Int        @id @default(autoincrement())
+  bookedDate   DateTime   // Itt tároljuk a konkrét időpontot
+  createdAt    DateTime   @default(now())
+
+  // Kapcsolatok beállítása
+  student      Student    @relation(fields: [studentId], references: [id])
+  studentId    Int
+
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId Int
 }
