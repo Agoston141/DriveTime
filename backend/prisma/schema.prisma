@@ -27,7 +27,7 @@ model Instructor {
   password   String
   email      String
   bookings  Booking[] // Kapcsolat a foglalásokkal
-  car?      String
+  car       String?
 }
 
 model Booking {
