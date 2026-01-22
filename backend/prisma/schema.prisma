@@ -11,34 +11,60 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. Admin modell a felügyelethez
+model Admin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
 }
 
 model Student {
-  id         Int      @id @default(autoincrement())
-  name       String
-  password   String
-  email      String
-  bookings  Booking[] // Kapcsolat a foglalásokkal
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  password String
+  bookings Booking[]
 }
 
 model Instructor {
-  id         Int      @id @default(autoincrement())
-  name       String
-  password   String
-  email      String
-  bookings  Booking[] // Kapcsolat a foglalásokkal
-  car       String?
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  password     String
+  car          String?
+  // Autó jóváhagyás állapota
+  carStatus    ApprovalStatus @default(PENDING) 
+  bookings     Booking[]
 }
 
 model Booking {
-  id           Int        @id @default(autoincrement())
-  bookedDate   DateTime   // Itt tároljuk a konkrét időpontot
-  createdAt    DateTime   @default(now())
+  id           Int           @id @default(autoincrement())
+  bookedDate   DateTime
+  createdAt    DateTime      @default(now())
+  
+  // Foglalás állapota (Elfogadva/Elutasítva/Függőben)
+  status       BookingStatus @default(PENDING)
 
-  // Kapcsolatok beállítása
-  student      Student    @relation(fields: [studentId], references: [id])
+  student      Student       @relation(fields: [studentId], references: [id])
   studentId    Int
 
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructor   Instructor    @relation(fields: [instructorId], references: [id])
   instructorId Int
+}
+
+// Segéd típusok a státuszok kezeléséhez
+enum ApprovalStatus {
+  PENDING   // Admin jóváhagyásra vár
+  APPROVED  // Admin elfogadta (vezethet)
+  REJECTED  // Admin elutasította (pl. lovaskocsi)
+}
+
+enum BookingStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
