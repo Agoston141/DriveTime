@@ -18,7 +18,6 @@ model Student {
   name       String
   password   String
   email      String
- 
   bookings  Booking[] // Kapcsolat a foglalásokkal
 }
 
@@ -28,6 +27,7 @@ model Instructor {
   password   String
   email      String
   bookings  Booking[] // Kapcsolat a foglalásokkal
+  car      String
 }
 
 model Booking {
