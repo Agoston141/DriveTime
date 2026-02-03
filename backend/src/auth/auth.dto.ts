@@ -23,7 +23,7 @@ export class RegisterInstructorDto{
     password!:string
     
     @IsString() @IsOptional()
-    cars?:string 
+    car?:string 
 }
 
 export class LoginUserDto{

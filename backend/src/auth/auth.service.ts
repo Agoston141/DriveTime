@@ -2,7 +2,7 @@ import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import argon2 from 'argon2'
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginUserDto, RegisterUserDto } from './auth.dto';
+import { LoginInstructorDto, LoginUserDto, RegisterInstructorDto, RegisterUserDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -56,5 +56,51 @@ export class AuthService {
         }
 
         return {user:loguser,accessToken:this.jwtService.sign(payload)}
+    }
+
+    async authRegisterInstructor(user:RegisterInstructorDto){
+        const exists = await this.prisma.instructor.findUnique({where:{
+            email:user.email
+        },select:{id:true}})
+
+        if(exists) throw new ConflictException('Email already in use');
+
+        const hashedPasswd = await argon2.hash(user.password)
+
+        const registerInstructor = await this.prisma.instructor.create({
+            data:{
+                name:user.name,
+                email:user.email,
+                password:hashedPasswd,
+                car:user.car
+            },
+            select:{
+                name:true,
+                email:true,
+                car:true
+            }
+        })
+    }
+
+    async authLoginInstructor(user:LoginInstructorDto){
+        const loginInstructor = await this.prisma.instructor.findUnique({
+            where: {email: user.email},
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                password: true,
+            }
+        });
+        if(!loginInstructor) throw new UnauthorizedException('Hibás email vagy jelszó');
+
+        const ok = await argon2.verify(loginInstructor.password,user.password)
+        if(!ok) throw new UnauthorizedException('Hibás jelszó');
+        const {password,...loginInst} = loginInstructor
+        const payload = {
+            sub:loginInst.id,
+            email:loginInst.email
+        }
+        return {user:loginInst,accessToken:this.jwtService.sign(payload)}
     }
 }
