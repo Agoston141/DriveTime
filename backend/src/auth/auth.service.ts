@@ -2,7 +2,7 @@ import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import argon2 from 'argon2'
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginInstructorDto, LoginUserDto, RegisterInstructorDto, RegisterUserDto } from './auth.dto';
+import { LoginAdminDto, LoginInstructorDto, LoginUserDto, RegisterInstructorDto, RegisterUserDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -102,5 +102,24 @@ export class AuthService {
             email:loginInst.email
         }
         return {user:loginInst,accessToken:this.jwtService.sign(payload)}
+    }
+
+    async adminlogin(user:LoginAdminDto){
+            const loginInstructor = await this.prisma.instructor.findUnique({
+            where: {email: user.email},
+            select: {
+                id: true,
+                email: true,
+                password: true,
+            }
+        });
+        if(!loginInstructor) throw new UnauthorizedException('Hibás email vagy jelszó');
+
+        const {password,...loginInst} = loginInstructor
+        const payload = {
+            sub:loginInst.id,
+            email:loginInst.email
+        }
+        return {user:loginInst}
     }
 }

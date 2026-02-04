@@ -41,3 +41,11 @@ export class LoginInstructorDto{
     @IsString()
     password!:string
 }
+
+export class LoginAdminDto{
+    @IsEmail()
+    email!:string;
+
+    @IsString()
+    password!:string
+}
