@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import 'dotenv/config';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,17 @@ async function bootstrap() {
       enableImplicitConversion: true,
     },
   }));
+
+  const config = new DocumentBuilder()
+  .setTitle('DriveTime')
+  .setDescription("DriveTime Swagger UI")
+  .setVersion('1.0')
+  .addBearerAuth()
+  .build()
+
+  const document = SwaggerModule.createDocument(app,config)
+  SwaggerModule.setup('docs',app,document)
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
