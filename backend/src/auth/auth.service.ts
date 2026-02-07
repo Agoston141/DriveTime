@@ -104,22 +104,47 @@ export class AuthService {
         return {user:loginInst,accessToken:this.jwtService.sign(payload)}
     }
 
-    async adminlogin(user:LoginAdminDto){
-            const loginInstructor = await this.prisma.instructor.findUnique({
+    async adminRegister(user:RegisterUserDto){
+            const exists = await this.prisma.admin.findUnique({where:{
+                email:user.email
+            },select:{id:true}})
+
+            if(exists) throw new ConflictException('Email already in use');
+
+            const hashedPasswd = await argon2.hash(user.password)
+
+            const registerAdmin = await this.prisma.admin.create({
+                data:{
+                    name:user.name,
+                    email:user.email,
+                    password:hashedPasswd,
+                },
+                select:{
+                    name:true,
+                    email:true,
+                }
+            })
+        }
+
+        async adminlogin(user:LoginInstructorDto){
+        const loginAdmin = await this.prisma.admin.findUnique({
             where: {email: user.email},
             select: {
                 id: true,
                 email: true,
+                name: true,
                 password: true,
             }
         });
-        if(!loginInstructor) throw new UnauthorizedException('Hibás email vagy jelszó');
+        if(!loginAdmin) throw new UnauthorizedException('Hibás email vagy jelszó');
 
-        const {password,...loginInst} = loginInstructor
+        const ok = await argon2.verify(loginAdmin.password,user.password)
+        if(!ok) throw new UnauthorizedException('Hibás jelszó');
+        const {password,...loginInst} = loginAdmin
         const payload = {
             sub:loginInst.id,
             email:loginInst.email
         }
-        return {user:loginInst}
+        return {user:loginInst,accessToken:this.jwtService.sign(payload)}
     }
 }

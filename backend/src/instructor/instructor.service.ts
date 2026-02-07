@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -14,5 +14,16 @@ export class InstructorService {
                 car:true
             }
         })
+    }
+
+    async deleteInstructorsbyId(id:number){
+        const exists= await this.prismaService.instructor.findUnique({where:{id},select:{
+            id:true,
+            name:true,
+            email:true
+        }})
+        if(!exists) throw new NotFoundException;
+        await this.prismaService.instructor.delete({where:{id}})
+        return {ok:true}
     }
 }

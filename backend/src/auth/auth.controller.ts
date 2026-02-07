@@ -32,6 +32,12 @@ export class AuthController {
         return await this.authService.authLoginInstructor(user);
     }
 
+    @ApiOperation({summary:'Admin regisztrálása'})
+    @Post('registerAdmin')
+    async registerAdmin(@Body() user:RegisterUserDto){
+        return await this.authService.adminRegister(user)
+    }
+
     @ApiOperation({summary:'Admin bejelentkezése'})
     @Post('loginAdmin')
     async loginAdmin(@Body() user:LoginAdminDto){
