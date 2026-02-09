@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "mysql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n}\n\n// 1. Admin modell a felügyelethez\nmodel Admin {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n}\n\nmodel Student {\n  id       Int       @id @default(autoincrement())\n  name     String\n  email    String    @unique\n  password String\n  bookings Booking[]\n}\n\nmodel Instructor {\n  id        Int            @id @default(autoincrement())\n  name      String\n  email     String         @unique\n  password  String\n  car       String?\n  // Autó jóváhagyás állapota\n  carStatus ApprovalStatus @default(PENDING)\n  bookings  Booking[]\n}\n\nmodel Booking {\n  id         Int      @id @default(autoincrement())\n  bookedDate DateTime\n  createdAt  DateTime @default(now())\n\n  // Foglalás állapota (Elfogadva/Elutasítva/Függőben)\n  status BookingStatus @default(PENDING)\n\n  student   Student @relation(fields: [studentId], references: [id])\n  studentId Int\n\n  instructor   Instructor @relation(fields: [instructorId], references: [id])\n  instructorId Int\n}\n\n// Segéd típusok a státuszok kezeléséhez\nenum ApprovalStatus {\n  PENDING // Admin jóváhagyásra vár\n  APPROVED // Admin elfogadta (vezethet)\n  REJECTED // Admin elutasította (pl. lovaskocsi)\n}\n\nenum BookingStatus {\n  PENDING\n  ACCEPTED\n  REJECTED\n}\n",
+  "inlineSchema": "generator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n}\n\nenum Role {\n  ADMIN\n  STUDENT\n  INSTRUCTOR\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n\n  role Role @default(STUDENT)\n\n  car       String?\n  carStatus ApprovalStatus?\n\n  studentBookings    Booking[] @relation(\"StudentBookings\")\n  instructorBookings Booking[] @relation(\"InstructorBookings\")\n}\n\nmodel Booking {\n  id         Int      @id @default(autoincrement())\n  bookedDate DateTime\n  createdAt  DateTime @default(now())\n\n  status BookingStatus @default(PENDING)\n\n  student   User @relation(\"StudentBookings\", fields: [studentId], references: [id])\n  studentId Int\n\n  instructor   User @relation(\"InstructorBookings\", fields: [instructorId], references: [id])\n  instructorId Int\n}\n\nenum ApprovalStatus {\n  PENDING\n  APPROVED\n  REJECTED\n}\n\nenum BookingStatus {\n  PENDING\n  ACCEPTED\n  REJECTED\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Admin\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Student\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToStudent\"}],\"dbName\":null},\"Instructor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"car\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"carStatus\",\"kind\":\"enum\",\"type\":\"ApprovalStatus\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToInstructor\"}],\"dbName\":null},\"Booking\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"bookedDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"BookingStatus\"},{\"name\":\"student\",\"kind\":\"object\",\"type\":\"Student\",\"relationName\":\"BookingToStudent\"},{\"name\":\"studentId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"instructor\",\"kind\":\"object\",\"type\":\"Instructor\",\"relationName\":\"BookingToInstructor\"},{\"name\":\"instructorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"car\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"carStatus\",\"kind\":\"enum\",\"type\":\"ApprovalStatus\"},{\"name\":\"studentBookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"StudentBookings\"},{\"name\":\"instructorBookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"InstructorBookings\"}],\"dbName\":null},\"Booking\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"bookedDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"BookingStatus\"},{\"name\":\"student\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"StudentBookings\"},{\"name\":\"studentId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"instructor\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"InstructorBookings\"},{\"name\":\"instructorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -60,8 +60,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Admins
-   * const admins = await prisma.admin.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -82,8 +82,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Admins
- * const admins = await prisma.admin.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -177,34 +177,14 @@ export interface PrismaClient<
   }>>
 
       /**
-   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Admins
-    * const admins = await prisma.admin.findMany()
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
     * ```
     */
-  get admin(): Prisma.AdminDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.student`: Exposes CRUD operations for the **Student** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Students
-    * const students = await prisma.student.findMany()
-    * ```
-    */
-  get student(): Prisma.StudentDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.instructor`: Exposes CRUD operations for the **Instructor** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Instructors
-    * const instructors = await prisma.instructor.findMany()
-    * ```
-    */
-  get instructor(): Prisma.InstructorDelegate<ExtArgs, { omit: OmitOpts }>;
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.booking`: Exposes CRUD operations for the **Booking** model.

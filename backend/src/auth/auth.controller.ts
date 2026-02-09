@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginAdminDto, LoginInstructorDto, LoginUserDto, RegisterInstructorDto, RegisterUserDto } from './auth.dto';
+import {LoginUserDto, RegisterUserDto } from './auth.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
@@ -9,18 +9,18 @@ export class AuthController {
     constructor(private readonly authService:AuthService){}
 
     @ApiOperation({summary:'Diák regisztrálása'})
-    @Post('registerStudent')
+    @Post('registerUser')
     async registerUser(@Body() user:RegisterUserDto){
-        return await this.authService.authRegisterStudent(user)
+        return await this.authService.authRegisterUser(user)
     }
 
     @ApiOperation({summary:'Diák bejelentkezése'})
-    @Post('loginStudent')
+    @Post('loginUser')
     async loginUser(@Body() user: LoginUserDto) {
-        return await this.authService.authLoginStudent(user);
+        return await this.authService.authLoginUser(user);
     }
 
-    @ApiOperation({summary:'Oktató regisztrálása'})
+    /* @ApiOperation({summary:'Oktató regisztrálása'})
     @Post('registerInstructor')
     async registerInstructor(@Body() user:RegisterInstructorDto){
         return await this.authService.authRegisterInstructor(user)
@@ -42,5 +42,5 @@ export class AuthController {
     @Post('loginAdmin')
     async loginAdmin(@Body() user:LoginAdminDto){
         return await this.authService.adminlogin(user)
-    }
+    } */
 }

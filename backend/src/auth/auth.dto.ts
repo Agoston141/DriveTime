@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsOptional, IsString } from "class-validator";
+import { Role } from "../generated/prisma/enums";
+
 
 export class RegisterUserDto{
     @IsString()
@@ -11,40 +13,16 @@ export class RegisterUserDto{
     @IsString()
     password!:string
 
-}
+    @IsOptional()
+    @IsEnum(Role)
+    role?: Role;
 
-export class RegisterInstructorDto{
+    @IsOptional()
     @IsString()
-    name!:string;
-
-    @IsEmail()
-    email!:string;
-
-    @IsString()
-    password!:string
-    
-    @IsString() @IsOptional()
-    car?:string 
+    car?: string;
 }
 
 export class LoginUserDto{
-    @IsEmail()
-    email!:string;
-
-    @IsString()
-    password!:string
-}
-
-export class LoginInstructorDto{
-    @IsEmail()
-    email!:string;
-
-    @IsString()
-    password!:string
-}
-
-
-export class LoginAdminDto{
     @IsEmail()
     email!:string;
 

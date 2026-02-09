@@ -2,7 +2,7 @@ import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import argon2 from 'argon2'
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginAdminDto, LoginInstructorDto, LoginUserDto, RegisterInstructorDto, RegisterUserDto } from './auth.dto';
+import {LoginUserDto, RegisterUserDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +11,8 @@ export class AuthService {
         private readonly prisma: PrismaService,
     ) {}
 
-    async authRegisterStudent(user:RegisterUserDto){
-        const exists = await this.prisma.student.findUnique({where:{
+    async authRegisterUser(user:RegisterUserDto){
+        const exists = await this.prisma.user.findUnique({where:{
             email:user.email
         },select:{id:true}})
 
@@ -20,11 +20,13 @@ export class AuthService {
 
         const hashedPasswd = await argon2.hash(user.password)
 
-        const registerUser = await this.prisma.student.create({
+        const registerUser = await this.prisma.user.create({
             data:{
                 name:user.name,
                 email:user.email,
-                password:hashedPasswd
+                password:hashedPasswd,
+                role:user.role,
+                car:user.car
             },
             select:{
                 name:true,
@@ -33,8 +35,8 @@ export class AuthService {
         })
     }
 
-    async authLoginStudent(user:LoginUserDto){
-        const loginStudent = await this.prisma.student.findUnique({
+    async authLoginUser(user:LoginUserDto){
+        const loginStudent = await this.prisma.user.findUnique({
             where: {email: user.email},
             select: {
                 id: true,
@@ -58,7 +60,7 @@ export class AuthService {
         return {user:loguser,accessToken:this.jwtService.sign(payload)}
     }
 
-    async authRegisterInstructor(user:RegisterInstructorDto){
+    /* async authRegisterInstructor(user:RegisterInstructorDto){
         const exists = await this.prisma.instructor.findUnique({where:{
             email:user.email
         },select:{id:true}})
@@ -146,5 +148,5 @@ export class AuthService {
             email:loginInst.email
         }
         return {user:loginInst,accessToken:this.jwtService.sign(payload)}
-    }
+    } */
 }

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -14,53 +8,45 @@ datasource db {
   provider = "mysql"
 }
 
-// 1. Admin modell a felügyelethez
-model Admin {
+enum Role {
+  ADMIN
+  STUDENT
+  INSTRUCTOR
+}
+
+model User {
   id       Int    @id @default(autoincrement())
   name     String
   email    String @unique
   password String
-}
+  
+  role     Role   @default(STUDENT)
 
-model Student {
-  id       Int       @id @default(autoincrement())
-  name     String
-  email    String    @unique
-  password String
-  bookings Booking[]
-}
+  car       String?
+  carStatus ApprovalStatus?
 
-model Instructor {
-  id           Int            @id @default(autoincrement())
-  name         String
-  email        String         @unique
-  password     String
-  car          String?
-  // Autó jóváhagyás állapota
-  carStatus    ApprovalStatus @default(PENDING) 
-  bookings     Booking[]
+  studentBookings    Booking[] @relation("StudentBookings")
+  instructorBookings Booking[] @relation("InstructorBookings")
 }
 
 model Booking {
-  id           Int           @id @default(autoincrement())
-  bookedDate   DateTime
-  createdAt    DateTime      @default(now())
+  id         Int      @id @default(autoincrement())
+  bookedDate DateTime
+  createdAt  DateTime @default(now())
   
-  // Foglalás állapota (Elfogadva/Elutasítva/Függőben)
-  status       BookingStatus @default(PENDING)
+  status     BookingStatus @default(PENDING)
 
-  student      Student       @relation(fields: [studentId], references: [id])
-  studentId    Int
+  student    User @relation("StudentBookings", fields: [studentId], references: [id])
+  studentId  Int
 
-  instructor   Instructor    @relation(fields: [instructorId], references: [id])
+  instructor User @relation("InstructorBookings", fields: [instructorId], references: [id])
   instructorId Int
 }
 
-// Segéd típusok a státuszok kezeléséhez
 enum ApprovalStatus {
-  PENDING   // Admin jóváhagyásra vár
-  APPROVED  // Admin elfogadta (vezethet)
-  REJECTED  // Admin elutasította (pl. lovaskocsi)
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum BookingStatus {

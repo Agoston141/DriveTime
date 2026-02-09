@@ -51,9 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Admin: 'Admin',
-  Student: 'Student',
-  Instructor: 'Instructor',
+  User: 'User',
   Booking: 'Booking'
 } as const
 
@@ -73,36 +71,17 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const AdminScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password'
-} as const
-
-export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
-
-
-export const StudentScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password'
-} as const
-
-export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
-
-
-export const InstructorScalarFieldEnum = {
+export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
   password: 'password',
+  role: 'role',
   car: 'car',
   carStatus: 'carStatus'
 } as const
 
-export type InstructorScalarFieldEnum = (typeof InstructorScalarFieldEnum)[keyof typeof InstructorScalarFieldEnum]
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
 export const BookingScalarFieldEnum = {
@@ -125,24 +104,6 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const AdminOrderByRelevanceFieldEnum = {
-  name: 'name',
-  email: 'email',
-  password: 'password'
-} as const
-
-export type AdminOrderByRelevanceFieldEnum = (typeof AdminOrderByRelevanceFieldEnum)[keyof typeof AdminOrderByRelevanceFieldEnum]
-
-
-export const StudentOrderByRelevanceFieldEnum = {
-  name: 'name',
-  email: 'email',
-  password: 'password'
-} as const
-
-export type StudentOrderByRelevanceFieldEnum = (typeof StudentOrderByRelevanceFieldEnum)[keyof typeof StudentOrderByRelevanceFieldEnum]
-
-
 export const NullsOrder = {
   first: 'first',
   last: 'last'
@@ -151,12 +112,12 @@ export const NullsOrder = {
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-export const InstructorOrderByRelevanceFieldEnum = {
+export const UserOrderByRelevanceFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
   car: 'car'
 } as const
 
-export type InstructorOrderByRelevanceFieldEnum = (typeof InstructorOrderByRelevanceFieldEnum)[keyof typeof InstructorOrderByRelevanceFieldEnum]
+export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
 
