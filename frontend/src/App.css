@@ -1,42 +1,296 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* colors: gray - #cacaca, yellow - #fca311, black, white, blue - #14213d   */
+
+*{box-sizing: border-box; padding: 0; margin: 0; font-family: 'Montserrat'; }
+
+
+/* NAV */
+nav{
+  background-color: rgba(20, 33, 61, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  font-weight: bold; 
+  width: 100vw;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+nav ul{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+  gap: 15rem;
+}
+nav a{
+  cursor: pointer;
+  font-size: 2rem;
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  color: #fca311;
+  transition: .3s;
+  text-shadow: 0 5px 15px rgba(252, 163, 17, 0.4);
+}
+.scrollBtn{
+  cursor: progress;
+  font-size: 3rem;
+  background-color: white;
+  border: none;
+}
+.scrollBtn:hover{
+  transform: scale(1.2);
+  transition: .3s;
+}
+
+/*HEADER*/
+header{ 
+  background: linear-gradient(to top right,rgba(204, 88, 11, 0.5), rgba(252, 163, 17, 0.5)), url(../img/driving.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.openingText{
+  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid black;
+  animation: typing 3s steps(30, end), blink 0.7s step-end infinite;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.openingText p{
+  padding: 2rem;
+}
+.appointment{
+  color: white;
+  letter-spacing: 5px;
+  background-color: #14213d;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 1.2rem;
+  font-size: 1.4rem;
+}
+
+/*MAIN*/
+.extras{
+ display: flex; 
+ justify-content: space-around;
+ font-size: 3rem;
+}
+.extras p{
+  padding: 2rem;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+main{
+  height: 70rem;
+  background-color: #f4f4f4;
+  display: grid;
+  justify-content: center;
+  align-items: center; 
+}
+.text{
+  font-size: 2rem;
+  color: #14213d;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.underline {
+  width: 30rem;
+  height: 2px;
+  background-color: #fca311;
+  margin: 3rem auto 3rem auto;
+  border-radius: 10px;
+}
+/* FORM */
+.forms{
+  display: flex;
+  gap: 10rem;
+  justify-content: center;
+}
+.forms h2{ font-size: 2rem;}
+.forms img{
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.forms input{
+  width: 15rem;
+  font-size: 1.2rem;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  cursor: text;
+}
+.forms input:hover, input:hover::placeholder{
+  border-color: #fca311;
+  color: #fca311;
+  transition: .3s;
+}
+
+.forms button{
+  width: 10rem;
+  background-color: #14213d;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.forms button:hover{
+  background-color: #fca311;
+  color: #14213d;
+  box-shadow: 0 5px 15px rgba(252, 163, 17, 0.4);
+}
+.studentForm, .instructorForm, .adminForm{
+  background-color: white ;
+  border-radius: 20px;
+  border: 2px solid #fca311;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  height: 30rem;
+  width: 25rem;
+}
+
+.studentForm:hover, .instructorForm:hover, .adminForm:hover {
+  transform: translateY(-10px);
+  box-shadow: 2px 2px 40px 1px rgba(252, 163, 17, 0.5);
+  transition: .3s;
+}
+/* FOOTER */
+footer{
+  color: white;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+.firstText{
+  background-color: #14213d;
+  height: 20rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.secondText{
+  background-color: #14213d;
+  height: 20rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10rem;
+}
+.secondText li{
+  list-style-type: none;
+}
+.con li, .creators li, .descript li, .service li{
+  padding-top: .5rem;
+  font-size: 1.1rem;
+}
+.descript{
+  width: 40rem;
+}
+hr{width: 10rem;}
+
+
+/*SCROLLBAR*/
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-track {
+  background: #818181
+  
+}
+::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 30px;
+}
+
+.wave-container {
+  height: 15rem;
+  width: 100vw;
+  background: #f4f4f4; 
+  overflow: hidden;
+}
+
+.waves {
+  position: relative;
+  width: 100vw;
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px, 0, 0);
   }
-  to {
-    transform: rotate(360deg);
+  100% { 
+    transform: translate3d(85px, 0, 0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 768px) {
+  .wave-container {
+    height: 40px;
+    min-height: 40px;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
