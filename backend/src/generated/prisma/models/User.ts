@@ -41,7 +41,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   car: string | null
-  carStatus: $Enums.ApprovalStatus | null
+  carStatus: $Enums.CarStatus | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -51,7 +51,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   car: string | null
-  carStatus: $Enums.ApprovalStatus | null
+  carStatus: $Enums.CarStatus | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -198,7 +198,7 @@ export type UserGroupByOutputType = {
   password: string
   role: $Enums.Role
   car: string | null
-  carStatus: $Enums.ApprovalStatus | null
+  carStatus: $Enums.CarStatus | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -231,7 +231,7 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableFilter<"User"> | string | null
-  carStatus?: Prisma.EnumApprovalStatusNullableFilter<"User"> | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.EnumCarStatusNullableFilter<"User"> | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingListRelationFilter
   instructorBookings?: Prisma.BookingListRelationFilter
 }
@@ -259,7 +259,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableFilter<"User"> | string | null
-  carStatus?: Prisma.EnumApprovalStatusNullableFilter<"User"> | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.EnumCarStatusNullableFilter<"User"> | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingListRelationFilter
   instructorBookings?: Prisma.BookingListRelationFilter
 }, "id" | "email">
@@ -289,7 +289,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  carStatus?: Prisma.EnumApprovalStatusNullableWithAggregatesFilter<"User"> | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.EnumCarStatusNullableWithAggregatesFilter<"User"> | $Enums.CarStatus | null
 }
 
 export type UserCreateInput = {
@@ -298,7 +298,7 @@ export type UserCreateInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
   instructorBookings?: Prisma.BookingCreateNestedManyWithoutInstructorInput
 }
@@ -310,7 +310,7 @@ export type UserUncheckedCreateInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
   instructorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutInstructorInput
 }
@@ -321,7 +321,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
   instructorBookings?: Prisma.BookingUpdateManyWithoutInstructorNestedInput
 }
@@ -333,7 +333,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
   instructorBookings?: Prisma.BookingUncheckedUpdateManyWithoutInstructorNestedInput
 }
@@ -345,7 +345,7 @@ export type UserCreateManyInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -354,7 +354,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -364,7 +364,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
 }
 
 export type UserOrderByRelevanceInput = {
@@ -428,8 +428,8 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type NullableEnumApprovalStatusFieldUpdateOperationsInput = {
-  set?: $Enums.ApprovalStatus | null
+export type NullableEnumCarStatusFieldUpdateOperationsInput = {
+  set?: $Enums.CarStatus | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -474,7 +474,7 @@ export type UserCreateWithoutStudentBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   instructorBookings?: Prisma.BookingCreateNestedManyWithoutInstructorInput
 }
 
@@ -485,7 +485,7 @@ export type UserUncheckedCreateWithoutStudentBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   instructorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutInstructorInput
 }
 
@@ -500,7 +500,7 @@ export type UserCreateWithoutInstructorBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
 }
 
@@ -511,7 +511,7 @@ export type UserUncheckedCreateWithoutInstructorBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
-  carStatus?: $Enums.ApprovalStatus | null
+  carStatus?: $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
 }
 
@@ -537,7 +537,7 @@ export type UserUpdateWithoutStudentBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   instructorBookings?: Prisma.BookingUpdateManyWithoutInstructorNestedInput
 }
 
@@ -548,7 +548,7 @@ export type UserUncheckedUpdateWithoutStudentBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   instructorBookings?: Prisma.BookingUncheckedUpdateManyWithoutInstructorNestedInput
 }
 
@@ -569,7 +569,7 @@ export type UserUpdateWithoutInstructorBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
 }
 
@@ -580,7 +580,7 @@ export type UserUncheckedUpdateWithoutInstructorBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  carStatus?: Prisma.NullableEnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus | null
+  carStatus?: Prisma.NullableEnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus | null
   studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
 }
 
@@ -669,7 +669,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     role: $Enums.Role
     car: string | null
-    carStatus: $Enums.ApprovalStatus | null
+    carStatus: $Enums.CarStatus | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1047,7 +1047,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly car: Prisma.FieldRef<"User", 'String'>
-  readonly carStatus: Prisma.FieldRef<"User", 'ApprovalStatus'>
+  readonly carStatus: Prisma.FieldRef<"User", 'CarStatus'>
 }
     
 

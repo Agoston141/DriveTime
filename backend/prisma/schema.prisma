@@ -23,7 +23,7 @@ model User {
   role     Role   @default(STUDENT)
 
   car       String?
-  carStatus ApprovalStatus?
+  carStatus CarStatus? @default(PENDING)
 
   studentBookings    Booking[] @relation("StudentBookings")
   instructorBookings Booking[] @relation("InstructorBookings")
@@ -43,7 +43,7 @@ model Booking {
   instructorId Int
 }
 
-enum ApprovalStatus {
+enum CarStatus {
   PENDING
   APPROVED
   REJECTED

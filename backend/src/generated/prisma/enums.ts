@@ -18,13 +18,13 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
-export const ApprovalStatus = {
+export const CarStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 } as const
 
-export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
+export type CarStatus = (typeof CarStatus)[keyof typeof CarStatus]
 
 
 export const BookingStatus = {

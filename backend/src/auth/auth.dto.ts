@@ -20,6 +20,7 @@ export class RegisterUserDto{
     @IsOptional()
     @IsString()
     car?: string;
+
 }
 
 export class LoginUserDto{
@@ -28,4 +29,7 @@ export class LoginUserDto{
 
     @IsString()
     password!:string
+
+    @IsOptional()
+    role?:string
 }
