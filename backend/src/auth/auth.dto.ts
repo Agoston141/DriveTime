@@ -16,11 +16,6 @@ export class RegisterUserDto{
     @IsOptional()
     @IsEnum(Role)
     role?: Role;
-
-    @IsOptional()
-    @IsString()
-    car?: string;
-
 }
 
 export class LoginUserDto{

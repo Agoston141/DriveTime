@@ -62,13 +62,6 @@ export type StringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type EnumCarStatusNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.CarStatus[] | null
-  notIn?: $Enums.CarStatus[] | null
-  not?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel> | $Enums.CarStatus | null
-}
-
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -134,16 +127,6 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
-}
-
-export type EnumCarStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.CarStatus[] | null
-  notIn?: $Enums.CarStatus[] | null
-  not?: Prisma.NestedEnumCarStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.CarStatus | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel>
 }
 
 export type DateTimeFilter<$PrismaModel = never> = {
@@ -236,13 +219,6 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type NestedEnumCarStatusNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.CarStatus[] | null
-  notIn?: $Enums.CarStatus[] | null
-  not?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel> | $Enums.CarStatus | null
-}
-
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -325,16 +301,6 @@ export type NestedIntNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
-}
-
-export type NestedEnumCarStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.CarStatus[] | null
-  notIn?: $Enums.CarStatus[] | null
-  not?: Prisma.NestedEnumCarStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.CarStatus | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumCarStatusNullableFilter<$PrismaModel>
 }
 
 export type NestedDateTimeFilter<$PrismaModel = never> = {

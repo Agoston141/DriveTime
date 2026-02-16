@@ -23,7 +23,6 @@ model User {
   role     Role   @default(STUDENT)
 
   car       String?
-  carStatus CarStatus? @default(PENDING)
 
   studentBookings    Booking[] @relation("StudentBookings")
   instructorBookings Booking[] @relation("InstructorBookings")
@@ -41,12 +40,6 @@ model Booking {
 
   instructor User @relation("InstructorBookings", fields: [instructorId], references: [id])
   instructorId Int
-}
-
-enum CarStatus {
-  PENDING
-  APPROVED
-  REJECTED
 }
 
 enum BookingStatus {

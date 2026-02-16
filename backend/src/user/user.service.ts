@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AdminUpdateCarStatusDto, UpdateInstructorDto } from './user.dto';
-import { CarStatus } from '../generated/prisma/enums';
+import argon2 from 'argon2'
+import { addInstructorDto, UpdateInstructorDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -58,7 +58,7 @@ export class UserService {
         }})
     }
 
-    async UpdateCarStatus(id:number,admin:AdminUpdateCarStatusDto){
+    /*async UpdateCarStatus(id:number,admin:AdminUpdateCarStatusDto){
         const exists = await this.prisma.user.findUnique({where:{id},select:{
             id:true,
             name:true,
@@ -69,5 +69,28 @@ export class UserService {
         return await this.prisma.user.update({where:{id:id,role:'INSTRUCTOR'},data:{
             carStatus:admin.carStatus
         }})
+    }*/
+
+    async addInstructor(instructor:addInstructorDto){
+        const exists = await this.prisma.user.findUnique({where:{
+            email:instructor.email
+        },select:{id:true}})
+
+         if(exists) throw new ConflictException('Az Email már használatba van');
+        
+        const hashedPasswd = await argon2.hash(instructor.password)
+
+        const registerUser = await this.prisma.user.create({
+            data:{
+                name:instructor.name,
+                email:instructor.email,
+                password:hashedPasswd,
+                role:"INSTRUCTOR",
+            },
+            select:{
+                name:true,
+                email:true
+            }
+        })
     }
 }

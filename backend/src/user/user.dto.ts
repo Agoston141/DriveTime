@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional, IsString,IsEnum } from "class-validator";
-import { CarStatus } from "../generated/prisma/enums";
+import { Role } from "../generated/prisma/enums";
 
 export class UpdateInstructorDto{
     @IsOptional() @IsString()
@@ -12,7 +12,20 @@ export class UpdateInstructorDto{
     car?: string;
 }
 
-export class AdminUpdateCarStatusDto{
-    @IsEnum(CarStatus)
-    carStatus!:CarStatus
+export class addInstructorDto{
+    @IsString()
+    name!:string
+
+    @IsEmail()
+    email!:string
+
+    @IsString()
+    password!:string
+
+    @IsString()
+    car!:string
+
+    @IsString()
+    @IsEnum(Role)
+    role!:Role
 }

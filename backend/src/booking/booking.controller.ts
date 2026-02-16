@@ -7,6 +7,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../generated/prisma/enums';
 
+
 @Controller('booking')
 export class BookingController {
     constructor(private readonly bookingservice:BookingService){}
@@ -25,4 +26,6 @@ export class BookingController {
     async deleteClassbyId(@Param("id") id:number){
         return await this.bookingservice.deleteBooking(id)
     }
+
+
 }

@@ -21,9 +21,6 @@ export class RolesGuard implements CanActivate {
     const { user } = context.switchToHttp().getRequest();
 
     const hasRole = requiredRoles.some((role) => user.role === role);
-    console.log('Elvárt szerepkörök:', requiredRoles);
-    console.log('User szerepköre a tokenből:', user.role);
-
     if (!hasRole) {
       throw new ForbiddenException('Nincs jogosultsága ehhez a művelethez!');
     }
