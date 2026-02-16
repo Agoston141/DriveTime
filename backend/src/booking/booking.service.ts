@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BookClassDto } from './booking.dto';
+import { AcceptBookingDto, BookClassDto } from './booking.dto';
 
 @Injectable()
 export class BookingService {
@@ -22,5 +22,16 @@ export class BookingService {
 
         await this.prisma.booking.delete({where:{id}})
         return {ok:true}
+    }
+
+        async acceptBooking(id:number,booking:AcceptBookingDto){
+        const exists = await this.prisma.booking.findUnique({where:{id},select:{
+            id:true,
+        }})
+        if(!exists) throw new NotFoundException("Nincs ilyen oktató");
+
+        return await this.prisma.booking.update({where:{id:id},data:{
+            status:booking.bookingStatus
+        }})
     }
 }

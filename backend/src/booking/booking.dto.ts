@@ -1,4 +1,5 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsEnum, IsNumber, IsString } from "class-validator";
+import { BookingStatus } from "../generated/prisma/enums";
 
 export class BookClassDto{
     @IsNumber()
@@ -9,4 +10,9 @@ export class BookClassDto{
 
     @IsString()
     bookedDate!:string
+}
+
+export class AcceptBookingDto{
+    @IsEnum(BookingStatus)
+    bookingStatus!:BookingStatus
 }

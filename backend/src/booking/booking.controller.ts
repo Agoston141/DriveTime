@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
-import { BookClassDto } from './booking.dto';
+import { AcceptBookingDto, BookClassDto } from './booking.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -27,5 +27,11 @@ export class BookingController {
         return await this.bookingservice.deleteBooking(id)
     }
 
-
+    @ApiOperation({summary:"Admin az autó elfogadása"})
+    @UseGuards(JwtAuthGuard,RolesGuard)
+    @Roles(Role.INSTRUCTOR)
+    @Patch("acceptBooking/:id")
+    async updateCarstatus(@Param("id",ParseIntPipe) id:number, @Body() booking:AcceptBookingDto){
+        return this.bookingservice.acceptBooking(id,booking)
+    }
 }
