@@ -13,8 +13,8 @@ export class BookingController {
     constructor(private readonly bookingservice:BookingService){}
 
     @ApiOperation({summary:'Óra foglalása'})
-    @UseGuards(JwtAuthGuard,RolesGuard)
-    @Roles(Role.STUDENT)
+    /*@UseGuards(JwtAuthGuard,RolesGuard)
+    @Roles(Role.STUDENT)*/
     @Post('makeBooking')
     async Bookclass(@Body() user:BookClassDto){
         return await this.bookingservice.makebooking(user)
@@ -28,8 +28,8 @@ export class BookingController {
     }
 
     @ApiOperation({summary:"Admin az autó elfogadása"})
-    @UseGuards(JwtAuthGuard,RolesGuard)
-    @Roles(Role.INSTRUCTOR)
+    /* @UseGuards(JwtAuthGuard,RolesGuard)
+    @Roles(Role.INSTRUCTOR) */
     @Patch("acceptBooking/:id")
     async updateCarstatus(@Param("id",ParseIntPipe) id:number, @Body() booking:AcceptBookingDto){
         return this.bookingservice.acceptBooking(id,booking)

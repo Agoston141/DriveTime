@@ -24,10 +24,8 @@ export class BookingService {
         return {ok:true}
     }
 
-        async acceptBooking(id:number,booking:AcceptBookingDto){
-        const exists = await this.prisma.booking.findUnique({where:{id},select:{
-            id:true,
-        }})
+    async acceptBooking(id:number,booking:AcceptBookingDto){
+        const exists = await this.prisma.booking.findUnique({where:{id:id},select:{id:true,}})
         if(!exists) throw new NotFoundException("Nincs ilyen oktató");
 
         return await this.prisma.booking.update({where:{id:id},data:{
