@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+*{box-sizing: border-box; padding: 0; margin: 0; font-family: 'Montserrat' !important}
+
 main {
   min-height: 100vh;
   height: auto;
@@ -7,6 +10,7 @@ main {
   background-attachment: fixed; 
   background-repeat: no-repeat;
   padding-bottom: 8rem;
+  font-family: 'Montserrat';
 }
 
 

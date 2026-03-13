@@ -36,7 +36,7 @@ const StudentMainComp = () => {
   const handleInstructorClick = (id: number) => {
     const clickedInst = instructor.find(i => i.id === id);
     if (clickedInst?.status === 'offline') {
-      setError(`A(z) ${clickedInst.name} jelenleg nem fogad diákot. Kérlek válassz másik oktatót!`);
+      setError(`A(z) kiválasztott oktató, ${clickedInst.name} jelenleg nem fogad diákot. Kérlek válassz másik oktatót!`);
       setSelectedInstructorId(null);
     } else {
       setError(null);
