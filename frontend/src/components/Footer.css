@@ -1,0 +1,101 @@
+/* FOOTER */
+footer{
+  color: white;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+.firstText{
+  background-color: #14213d;
+  height: 20rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.secondText{
+  background-color: #14213d;
+  height: 20rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10rem;
+}
+.secondText li{
+  list-style-type: none;
+}
+.con li, .creators li, .descript li, .service li{
+  padding-top: .5rem;
+  font-size: 1.1rem;
+}
+.descript{
+  width: 40rem;
+}
+hr{width: 10rem;}
+
+.wave-container {
+  height: 15rem;
+  width: 100vw;
+    background-color: #424242;
+  overflow: hidden;
+}
+
+.waves {
+  position: relative;
+  width: 100vw;
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px, 0, 0);
+  }
+  100% { 
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .wave-container {
+    height: 40px;
+    min-height: 40px;
+  }
+}
+
+/*SCROLLBAR*/
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-track {
+  background: #818181
+  
+}
+::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 30px;
+}

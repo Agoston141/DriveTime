@@ -25,11 +25,12 @@ export class AuthService {
                 name:user.name,
                 email:user.email,
                 password:hashedPasswd,
-                role:"STUDENT",
+                
             },
             select:{
                 name:true,
-                email:true
+                email:true,
+                role: true
             }
         })
     }

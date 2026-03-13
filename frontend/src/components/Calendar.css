@@ -1,0 +1,93 @@
+/* A naptár konténerének alapja */
+.react-calendar {
+  width: 100% !important;
+  max-width: 100%;
+  background-color: #14213d;
+  padding: 2rem;
+  height: 35rem;
+}
+
+/* Navigációs rész (Hónap neve, nyilak) */
+.react-calendar__navigation {
+  margin-bottom: 1rem;
+  color: white; 
+}
+
+
+.react-calendar__navigation button {
+  background: none !important;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  
+}
+.react-calendar__navigation button:hover{
+  color: #fca311 !important;
+  background: none !important;
+ 
+}
+
+/* Napok nevei (H, K, Sze...) */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: white;
+}
+
+/* Sima napok (számok) */
+.react-calendar__tile {
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  color: white;
+  position: relative; 
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.react-calendar__tile:hover{
+  color: black;
+  cursor: pointer;
+}
+.react-calendar__tile:disabled{
+  color: black !important;
+  background-color: rgb(20, 33, 61) !important;
+}
+
+button:disabled {
+  pointer-events: none; /* Teljesen kikapcsolja az interakciót */
+  transform: none !important; /* Nem mozdul el hoverre */
+}
+
+
+.react-calendar__tile--active {
+  background: #fca311 !important; 
+  color: #14213d !important;     
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(252, 163, 17, 0.5);
+  
+}
+
+/* A mai nap megjelölése */
+.react-calendar__tile--now {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid #fca311 !important;
+}
+
+/* Hétvégi napok (opcionális, ha más színt akarsz) */
+.react-calendar__month-view__days__day--weekend {
+  color: #fca311 ;
+}
+.react-calendar__month-view__days__day--weekend:hover{
+  color: black !important;
+}
+/* Azok a napok, amik nem az aktuális hónaphoz tartoznak */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: rgba(172, 97, 0, 0.4) !important;
+}
+.react-calendar__month-view__days__day--neighboringMonth:hover{
+  color: black !important;
+}

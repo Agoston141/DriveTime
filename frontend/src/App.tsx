@@ -1,9 +1,11 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, NavLink  } from 'react-router-dom'
 import './App.css'
 import HomeComp from './components/HomeComp'
-import StudentSiteComp from './components/StudentSiteComp'
-import InstructorSiteComp from './components/InstructorSiteComp'
 import AdminSiteComp from './components/AdminSiteComp'
+import InstructorLogin from './components/InstructorSiteComp'
+import StudentLogin from './components/StudentSiteComp'
+import StudentRegisterComp from './components/StudenRegisterComp'
+import StudentMainComp from './components/StudentMainComp'
 
 
 function App() {
@@ -14,17 +16,21 @@ function App() {
       <BrowserRouter>
       <nav>
         <ul>
-          <li><Link to='/'>Főoldal</Link></li>
-          <li><Link to='/student'>Tanuló</Link></li>
-          <li><Link to='/instructor'>Oktató</Link></li>
-          <li><Link to='/admin'>Admin</Link></li>
+          <li><NavLink to='/' end><i className="bi bi-box-arrow-in-right"></i> Főoldal</NavLink></li>
+           <li><NavLink to='/student'><i className="bi bi-person-circle"></i> Tanulóknak</NavLink></li>
+          <li><NavLink to='/instructor'><i className="bi bi-pencil"></i> Tanároknak</NavLink></li>
+
+           <li><NavLink to='/admin'><i className="bi bi-gear"></i> Admin</NavLink></li>
+            
         </ul>
       </nav>
         <Routes>
           <Route path='/' element={<HomeComp />}/>
-          <Route path='/student' element={<StudentSiteComp />}/>
-          <Route path='/instructor' element={<InstructorSiteComp />}/>
+          <Route path='/student' element={<StudentLogin />}/> 
+          <Route path='/instructor' element={<InstructorLogin />}/>
           <Route path='/admin' element={<AdminSiteComp />}/>
+          <Route path='/student-register' element={<StudentRegisterComp />}/>
+          <Route path='/student-site' element={<StudentMainComp />}/>
         </Routes>
       </BrowserRouter>
     </>
