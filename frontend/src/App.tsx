@@ -7,6 +7,7 @@ import StudentLogin from './components/StudentSiteComp'
 import StudentRegisterComp from './components/StudenRegisterComp'
 import StudentMainComp from './components/StudentMainComp'
 import AdminMainComp from './components/AdminMainComp'
+import InstructorMainComp from './components/InstructorMainComp'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path='/student-register' element={<StudentRegisterComp />}/>
           <Route path='/student-site' element={<StudentMainComp />}/>
           <Route path='/admin-site' element={<AdminMainComp />}/>
+          <Route path='/instructor-site' element={<InstructorMainComp  />}/>
         </Routes>
       </BrowserRouter>
     </>
