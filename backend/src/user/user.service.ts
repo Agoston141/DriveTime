@@ -1,11 +1,14 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import argon2 from 'argon2'
-import { addInstructorDto, UpdateInstructorDto } from './user.dto';
+import { addInstructorDto, resetpwdDto, UpdateInstructorDto } from './user.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UserService {
-    constructor(private readonly prisma:PrismaService){}
+    constructor(private readonly prisma:PrismaService,
+                private readonly mailService:MailService
+    ){}
 
     async deleteUserbyid(id:number){
             const deleteStudent = await this.prisma.user.findUnique({where:{id},select:{
@@ -92,5 +95,24 @@ export class UserService {
                 email:true
             }
         })
+    }
+
+    async resetPwd(id:number,user:resetpwdDto){
+        const exists = await this.prisma.user.findUnique({where:{id:id}})
+        if(!exists) throw new ConflictException('Nincs ilyen felhasználó');
+
+        const hashedPasswd = await argon2.hash(user.password)
+
+        const resetPasswordUser = await this.prisma.user.update({where:{id:id},data:{
+            password:hashedPasswd
+        }})
+
+        await this.mailService.sendResetMail(
+            exists.email,
+            exists.name,
+            "https://www.youtube.com/"
+        )
+
+        return resetPasswordUser
     }
 }

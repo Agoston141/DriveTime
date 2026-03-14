@@ -22,4 +22,13 @@ export class MailService {
             context: { name: userName,date: date,status},
         });
     }
+
+        async sendResetMail(userEmail: string, userName: string,link:string) {
+        await this.mailerService.sendMail({
+            to: userEmail,
+            subject: 'Jelszó vissza állitása!.',
+            template: './resetPwd', 
+            context: { name: userName,link:link},
+        });
+    }
 }

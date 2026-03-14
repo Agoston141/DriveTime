@@ -29,3 +29,8 @@ export class addInstructorDto{
     @IsEnum(Role)
     role!:Role
 }
+
+export class resetpwdDto{
+    @IsString()
+    password!:string
+}

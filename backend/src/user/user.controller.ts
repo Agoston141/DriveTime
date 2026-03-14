@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGua
 
 import { ApiOperation } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { addInstructorDto,UpdateInstructorDto } from './user.dto';
+import { addInstructorDto,resetpwdDto,UpdateInstructorDto } from './user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -50,5 +50,11 @@ export class UserController {
     @Post("addInstructor")
     async addInstructor(@Body() instructor:addInstructorDto){
         return await this.userService.addInstructor(instructor)
+    }
+
+    @ApiOperation({summary:"Jelszó resetelése"})
+    @Patch("resetpwd/:id")
+    async resetpwd(@Param("id",ParseIntPipe) id:number, @Body() user:resetpwdDto){
+        return await this.userService.resetPwd(id,user)
     }
 }
