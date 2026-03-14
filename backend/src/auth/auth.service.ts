@@ -3,12 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import argon2 from 'argon2'
 import { PrismaService } from '../prisma/prisma.service';
 import {LoginUserDto, RegisterUserDto } from './auth.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         private readonly prisma: PrismaService,
+        private readonly mailService:MailService,
     ) {}
 
     async authRegisterUser(user:RegisterUserDto){
@@ -33,6 +35,7 @@ export class AuthService {
                 role: true
             }
         })
+        await this.mailService.sendWelcomeEmail(user.email,user.name)
     }
 
     async authLoginUser(user:LoginUserDto){
