@@ -22,7 +22,8 @@ model User {
   
   role     Role   @default(STUDENT)
 
-  car       String?
+  car      String?
+  status   String  @default("offline")   // ← új
 
   studentBookings    Booking[] @relation("StudentBookings")
   instructorBookings Booking[] @relation("InstructorBookings")
