@@ -285,7 +285,7 @@ const StudentMainComp = () => {
             {step === 1 && (
               <div className="fade-in">
                 {error && (
-                  <div style={{ color: '#ff4d4d', textAlign: 'center', marginBottom: '2rem', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <div style={{ color: '#ff4d4d', textAlign: 'center',  fontSize: '1.2rem', fontWeight: 'bold', paddingTop: '2rem' }}>
                     <i className="bi bi-exclamation-triangle-fill"></i> {error}
                   </div>
                 )}
