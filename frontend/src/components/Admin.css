@@ -18,6 +18,8 @@
 .forms h2{ 
   font-size: 2.5rem;
   text-transform: uppercase;
+  
+   
 }
 .forms input{
   width: 30rem;
@@ -28,11 +30,14 @@
   outline: 0;
   cursor: text;
   height: 2.5rem;
+  padding-left: 0.5rem;
+   
 }
 .forms input:hover, input:hover::placeholder{
   border-color: rgb(39, 139, 179);
   color: rgb(39, 139, 179);
   transition: .3s;
+  
 }
 
 .forms button{
@@ -95,10 +100,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 .loginError{
   color: red !important;
-  font-size: 1.2rem !important;
+  font-size: 1.0rem !important;
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
   height: 0.5rem;
+  margin-top: -0.8rem !important;
 
 }
 

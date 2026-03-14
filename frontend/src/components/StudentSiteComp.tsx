@@ -67,7 +67,7 @@ const StudentLogin = () => {
             marginTop: "2rem",
           }}>Bejelentkezés a tanulói felületre</h1>
           <div className="underline"></div>
-          <h2 style={{ color: "white" }}>Üdvözlünk a tanulói felületen!</h2>
+          <h2 style={{ color: "white" }}>Üdvözöljük a tanulói felületen!</h2>
         </div>
 
         <div className="forms">

@@ -14,18 +14,29 @@ main {
 }
 
 
-.extras{
- display: flex; 
- justify-content: space-around;
- font-size: 2.5rem;
-}
-.extras p{
-  padding: 2rem;
-  width: 100%;
-  text-align: center;
-  letter-spacing: 5px;
+.extras {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 2.5rem;
 }
 
+.extras-track {
+  display: inline-flex;
+  animation: marquee 35s linear infinite;
+}
+
+.extras-track p {
+  padding: 2rem;
+  width: 25vw;
+  text-align: center;
+  letter-spacing: 5px;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 .cards {
   display: flex;
@@ -57,9 +68,9 @@ main {
 }
 
 @keyframes rare-flip {
-  0%, 80% { transform: rotateY(0deg); }    /* Az idő 80%-ában csak áll */
-  85%, 95% { transform: rotateY(180deg); } /* Gyorsan megfordul és ott marad egy kicsit */
-  100% { transform: rotateY(0deg); }       /* Visszafordul */
+  0%, 80% { transform: rotateY(0deg); }    
+  85%, 95% { transform: rotateY(180deg); } 
+  100% { transform: rotateY(0deg); }      
 }
 .card {
   animation: rare-flip 15s infinite;
@@ -219,7 +230,7 @@ main {
   box-shadow: 0 4px 15px rgba(252, 163, 17, 0.2);
 }
 
-/* A hover trükk */
+
 .appointment:hover {
   transform: translateY(-3px) scale(1.02); 
   box-shadow: 0 0 25px rgba(252, 163, 17, 0.6); 
@@ -255,14 +266,28 @@ footer {
 }
 
 
-/* Csak azokon a gombokon legyen hover, amik nincsenek letiltva */
+
 .time-btn:not(:disabled):hover {
   border-color: #fca311 !important;
   transform: scale(1.05);
 }
 
 .time-btn:disabled {
-  filter: grayscale(1); /* Még egy kis extra "halottság" az ikonnak/szövegnek */
+  filter: grayscale(1); 
+}
+
+.adminTable th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 1rem;
+  color: #fca311;
+  font-weight: bold;
+}
+
+.adminTable td {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  color: white;
 }
 
 @media (max-width: 1000px) {

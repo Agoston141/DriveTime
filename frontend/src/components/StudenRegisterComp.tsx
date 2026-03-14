@@ -6,8 +6,9 @@ const StudentRegisterComp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false); // Új state a siker jelzésére
-  
+  const [success, setSuccess] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
@@ -24,6 +25,22 @@ const StudentRegisterComp = () => {
     });
   };
 
+  const getPasswordStrength = (password: string) => {
+    if (password.length === 0) return null;
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+    if (score <= 1) return { label: 'Gyenge', color: '#ff4d4d', width: '33%' };
+    if (score <= 2) return { label: 'Átlagos', color: '#fca311', width: '66%' };
+    return { label: 'Erős', color: '#4BB543', width: '100%' };
+  };
+
+  const strength = getPasswordStrength(formData.password);
+  const passwordsMatch = confirmPassword.length > 0 && formData.password === confirmPassword;
+  const passwordsMismatch = confirmPassword.length > 0 && formData.password !== confirmPassword;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -31,6 +48,11 @@ const StudentRegisterComp = () => {
 
     if (!formData.isOver17) {
       setError('A regisztrációhoz el kell múlnod 17 évesnek!');
+      return;
+    }
+
+    if (formData.password !== confirmPassword) {
+      setError('A két jelszó nem egyezik meg!');
       return;
     }
 
@@ -86,13 +108,12 @@ const StudentRegisterComp = () => {
 
         <div className="forms">
           <form className='adminForm' onSubmit={handleSubmit} style={{ minHeight: 'auto', gap: '0.8rem', padding: '1.5rem' }}>
-            <h1 style={{ marginTop: '2.0rem', marginBottom: '2.5rem' }}><i className="bi bi-person-plus-fill"></i></h1>
+            <h1 style={{ marginTop: '2.0rem', marginBottom: '1rem' }}><i className="bi bi-person-plus-fill"></i></h1>
             <h2>Új fiók létrehozása</h2>
-            
-            {/* Üzenetek megjelenítése */}
+
             {error && <div className='loginError' style={{ color: '#ff4d4d', marginBottom: '0.5rem', fontWeight: 'bold' }}>{error}</div>}
-            {success && <div style={{ color: '#4BB543', marginBottom: '0.5rem', fontWeight: 'bold' }}>Sikeres regisztráció! Átirányítás...</div>}
-            
+            {success && <div style={{ color: '#4BB543', marginTop: '-0.8rem',height: '0.5rem', fontSize: '1.0rem',  fontWeight: 'bold' }}>Sikeres regisztráció! Átirányítás...</div>}
+
             <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
               <input
                 type="text"
@@ -101,7 +122,7 @@ const StudentRegisterComp = () => {
                 required
                 disabled={success}
                 onChange={handleChange}
-                style={{ flex: 1, padding: '10px' }} 
+                style={{ flex: 1, padding: '10px' }}
               />
               <input
                 type="text"
@@ -123,7 +144,8 @@ const StudentRegisterComp = () => {
               onChange={handleChange}
               style={{ padding: '10px' }}
             />
-            
+
+            {/* JELSZÓ */}
             <input
               type="password"
               name="password"
@@ -134,11 +156,68 @@ const StudentRegisterComp = () => {
               style={{ padding: '10px' }}
             />
 
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
+            {/* JELSZÓ ERŐSSÉG JELZŐ */}
+            {strength && (
+              <div style={{ width: '80%' }}>
+                <div style={{
+                  width: '100%', height: '6px',
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  borderRadius: '10px', overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: strength.width,
+                    height: '100%',
+                    backgroundColor: strength.color,
+                    borderRadius: '10px',
+                    transition: 'all 0.3s ease'
+                  }}></div>
+                </div>
+                <p style={{
+                  color: strength.color,
+                  fontSize: '0.8rem',
+                  marginTop: '4px',
+                  fontWeight: 'bold'
+                }}>
+                  {strength.label}
+                </p>
+              </div>
+            )}
+
+            {/* JELSZÓ MEGERŐSÍTÉS */}
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder='🔒︎ Jelszó megerősítése'
+              required
+              disabled={success}
+              onChange={e => setConfirmPassword(e.target.value)}
+              style={{
+                padding: '10px',
+                borderBottom: passwordsMismatch
+                  ? '2px solid #ff4d4d'
+                  : passwordsMatch
+                  ? '2px solid #4BB543'
+                  : '2px solid gray'
+              }}
+            />
+
+            {/* JELSZÓ EGYEZÉS JELZÉS */}
+            {passwordsMismatch && (
+              <p style={{ color: '#ff4d4d', fontSize: '0.8rem', fontWeight: 'bold', width: '80%' }}>
+                ✕ A jelszavak nem egyeznek!
+              </p>
+            )}
+            {passwordsMatch && (
+              <p style={{ color: '#4BB543', fontSize: '0.8rem', fontWeight: 'bold', width: '100%' }}>
+                ✓ A jelszavak egyeznek!
+              </p>
+            )}
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
               gap: '8px',
-              color: 'white', 
+              color: 'white',
               marginTop: '5px',
               width: '100%',
               justifyContent: 'flex-start'
@@ -156,15 +235,15 @@ const StudentRegisterComp = () => {
               </label>
             </div>
 
-            <button type="submit" disabled={loading || success} style={{ marginTop: '1.2rem' }}>
+            <button type="submit" disabled={loading || success || passwordsMismatch} >
               {loading ? 'Regisztráció...' : success ? 'SIKERES!' : 'FIÓK LÉTREHOZÁSA'}
             </button>
 
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => navigate('/student')}
               style={{
-                marginTop: '0.8rem',
+                
                 background: 'transparent',
                 border: 'none',
                 color: 'rgba(255,255,255,0.7)',
