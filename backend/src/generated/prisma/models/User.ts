@@ -41,6 +41,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   car: string | null
+  status: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   car: string | null
+  status: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -59,6 +61,7 @@ export type UserCountAggregateOutputType = {
   password: number
   role: number
   car: number
+  status: number
   _all: number
 }
 
@@ -78,6 +81,7 @@ export type UserMinAggregateInputType = {
   password?: true
   role?: true
   car?: true
+  status?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -87,6 +91,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   role?: true
   car?: true
+  status?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type UserCountAggregateInputType = {
   password?: true
   role?: true
   car?: true
+  status?: true
   _all?: true
 }
 
@@ -192,6 +198,7 @@ export type UserGroupByOutputType = {
   password: string
   role: $Enums.Role
   car: string | null
+  status: string
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -224,6 +231,7 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableFilter<"User"> | string | null
+  status?: Prisma.StringFilter<"User"> | string
   studentBookings?: Prisma.BookingListRelationFilter
   instructorBookings?: Prisma.BookingListRelationFilter
 }
@@ -235,6 +243,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   car?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   studentBookings?: Prisma.BookingOrderByRelationAggregateInput
   instructorBookings?: Prisma.BookingOrderByRelationAggregateInput
   _relevance?: Prisma.UserOrderByRelevanceInput
@@ -250,6 +259,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableFilter<"User"> | string | null
+  status?: Prisma.StringFilter<"User"> | string
   studentBookings?: Prisma.BookingListRelationFilter
   instructorBookings?: Prisma.BookingListRelationFilter
 }, "id" | "email">
@@ -261,6 +271,7 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   car?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -278,6 +289,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   car?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  status?: Prisma.StringWithAggregatesFilter<"User"> | string
 }
 
 export type UserCreateInput = {
@@ -286,6 +298,7 @@ export type UserCreateInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
   instructorBookings?: Prisma.BookingCreateNestedManyWithoutInstructorInput
 }
@@ -297,6 +310,7 @@ export type UserUncheckedCreateInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
   instructorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutInstructorInput
 }
@@ -307,6 +321,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
   instructorBookings?: Prisma.BookingUpdateManyWithoutInstructorNestedInput
 }
@@ -318,6 +333,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
   instructorBookings?: Prisma.BookingUncheckedUpdateManyWithoutInstructorNestedInput
 }
@@ -329,6 +345,7 @@ export type UserCreateManyInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -337,6 +354,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -346,6 +364,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserOrderByRelevanceInput = {
@@ -361,6 +380,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   car?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -374,6 +394,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   car?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -383,6 +404,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   car?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -448,6 +470,7 @@ export type UserCreateWithoutStudentBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   instructorBookings?: Prisma.BookingCreateNestedManyWithoutInstructorInput
 }
 
@@ -458,6 +481,7 @@ export type UserUncheckedCreateWithoutStudentBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   instructorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutInstructorInput
 }
 
@@ -472,6 +496,7 @@ export type UserCreateWithoutInstructorBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
 }
 
@@ -482,6 +507,7 @@ export type UserUncheckedCreateWithoutInstructorBookingsInput = {
   password: string
   role?: $Enums.Role
   car?: string | null
+  status?: string
   studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
 }
 
@@ -507,6 +533,7 @@ export type UserUpdateWithoutStudentBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   instructorBookings?: Prisma.BookingUpdateManyWithoutInstructorNestedInput
 }
 
@@ -517,6 +544,7 @@ export type UserUncheckedUpdateWithoutStudentBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   instructorBookings?: Prisma.BookingUncheckedUpdateManyWithoutInstructorNestedInput
 }
 
@@ -537,6 +565,7 @@ export type UserUpdateWithoutInstructorBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
 }
 
@@ -547,6 +576,7 @@ export type UserUncheckedUpdateWithoutInstructorBookingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   car?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
 }
 
@@ -597,6 +627,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   role?: boolean
   car?: boolean
+  status?: boolean
   studentBookings?: boolean | Prisma.User$studentBookingsArgs<ExtArgs>
   instructorBookings?: boolean | Prisma.User$instructorBookingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -611,9 +642,10 @@ export type UserSelectScalar = {
   password?: boolean
   role?: boolean
   car?: boolean
+  status?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "car", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "car" | "status", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   studentBookings?: boolean | Prisma.User$studentBookingsArgs<ExtArgs>
   instructorBookings?: boolean | Prisma.User$instructorBookingsArgs<ExtArgs>
@@ -633,6 +665,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     role: $Enums.Role
     car: string | null
+    status: string
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1010,6 +1043,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly car: Prisma.FieldRef<"User", 'String'>
+  readonly status: Prisma.FieldRef<"User", 'String'>
 }
     
 

@@ -25,7 +25,23 @@ export class addInstructorDto{
     @IsString()
     car!:string
 
+     @IsString()
+    status!: string  
+
     @IsString()
     @IsEnum(Role)
     role!:Role
+
+    
+}
+
+export class UpdateUserRoleDto {
+    @IsString()
+    @IsEnum(Role)
+    role!: Role
+}
+
+export class UpdateUserStatusDto {
+    @IsString()
+    status!: string
 }

@@ -16,6 +16,53 @@ export class BookingService {
         })
     }
 
+    async getStudentBookings(studentId: number) {
+    return await this.prisma.booking.findMany({
+        where: { studentId },
+        select: {
+            id: true,
+            bookedDate: true,
+            status: true,
+            instructor: {
+                select: { id: true, name: true, car: true }
+            }
+        },
+        orderBy: { bookedDate: 'asc' }
+    })
+}
+
+    async getInstructorBookings(instructorId: number) {
+    return await this.prisma.booking.findMany({
+        where: { instructorId },
+        select: {
+            id: true,
+            bookedDate: true,
+            status: true,
+            student: {
+                select: { id: true, name: true, email: true }
+            }
+        },
+        orderBy: { bookedDate: 'asc' }
+    })
+}
+
+    async getBookings() {
+    return await this.prisma.booking.findMany({
+        select: {
+            id: true,
+            bookedDate: true,
+            status: true,
+            student: {
+                select: { id: true, name: true, email: true }
+            },
+            instructor: {
+                select: { id: true, name: true }
+            }
+        },
+        orderBy: { bookedDate: 'asc' }
+    })
+}
+
     async deleteBooking(id:number){
         const deleteBooking = await this.prisma.booking.findUnique({where:{id}})
         if(!deleteBooking) throw new NotFoundException("Nincs ilyen foglalás");
