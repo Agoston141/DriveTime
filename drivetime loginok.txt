@@ -1,0 +1,36 @@
+SWAGGER.LOGINOK.
+
+/auth/register:
+Az ADMIN a biztonság kedvéért STUDENT roleal jön létre. Prisma Studioban a roleot (enum)
+megváltoztatva teljesenkörűen hozzáférsz mindenhez.
+
+adminnak:
+{
+  "email": "admin@drivetime.hu",
+  "password": "titkosjelszo",
+  "name": "Fő Admin",
+  "role": "ADMIN"
+}
+
+/auth/register:
+tanulonak
+{
+  "email": "tesztelo@drivetime.hu",
+  "password": "titkosjelszo",
+  "name": "Tanuló",
+  "role": "STUDENT"
+}
+
+//auth/registerben NE adj hozzá Instructort, használj helyette user/addInstructor-t!
+Ahhoz hogy tudd használni a addInstructor-t, ADMIN-nak KELL lenned. Ehhez swaggerben be kell jelentkezned
+az adminba amit létrehoztál, onnan le kell kérni a bearer tokent amit hozzáadsz a swaggerben, 
+vagy a felületen keresztül létrehozod.
+
+{
+  "email": "adam@drivetime.hu",
+  "password": "titkosjelszo",
+  "name": "Pál Ádám",
+  "role": "INSTRUCTOR",
+  "status": "offline", // EZ lehet online is.
+  "car": "Opel Corsa"
+}
