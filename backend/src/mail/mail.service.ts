@@ -18,7 +18,7 @@ export class MailService {
             to: userEmail,
             subject: 'Óra állapotával kapcsolatos információk!.',
             template: './oraAllapot', 
-            context: { name: userName,date: date,status},
+            context: { name: userName,date: date,status:status},
         });
     }
 

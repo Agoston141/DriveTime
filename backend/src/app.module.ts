@@ -1,43 +1,37 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import * as path from 'path';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { BookingModule } from './booking/booking.module';
+import { MailerModule } from "@nestjs-modules/mailer"
 import { UserModule } from './user/user.module';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule,
-    AuthModule,
-    BookingModule,
-    UserModule,
-    MailerModule.forRoot({
-      transport: {
-        host: process.env.MAIL_HOST,
-        port: parseInt(process.env.MAIL_PORT ?? '587'),
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
-        },
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, BookingModule, UserModule, MailerModule.forRoot({
+    transport: {
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
       },
-      defaults: {
-        from: '"DriveTime" <noreply@drivetime.hu>',
-      },
-      template: {
-        dir: path.resolve('src/templates'),
-        adapter: new HandlebarsAdapter(),
-        options: { strict: false },
-      },
-    }),
-  ],
+    },
+    defaults: {
+      from: '"DriveTime" <noreply@drivetime.hu>'
+    },
+    template: {
+      dir: join(process.cwd(), 'templates'),
+      adapter: new HandlebarsAdapter(),
+      options: {strict: true},
+    }
+  }), MailModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
