@@ -107,8 +107,7 @@ export class UserService {
         return updated
     }
 
-        async seedData() {
-    const commonPassword = await argon2.hash('password123');
+    async seedData() {
 
     // 1. Admin létrehozása/frissítése
     await this.prisma.user.upsert({
@@ -124,11 +123,11 @@ export class UserService {
 
     // 2. Oktatók listája
     const instructors = [
-      { name: 'Kovács János', email: 'janos@gmail.com', car: 'Skoda Octavia' },
-      { name: 'Nagy Piroska', email: 'piroska@gmail.com', car: 'Volkswagen Golf' },
-      { name: 'Tóth Gábor', email: 'gabor@gmail.com', car: 'Ford Focus' },
-      { name: 'Szabó Béla', email: 'bela@gmail.com', car: 'Toyota Auris' },
-      { name: 'Horváth Éva', email: 'eva@gmail.com', car: 'Opel Astra' },
+      { name: 'Kovács János', email: 'janos@gmail.com', car: 'Skoda Octavia' ,password:"oktat1"},
+      { name: 'Nagy Piroska', email: 'piroska@gmail.com', car: 'Volkswagen Golf' ,password:"oktat2"},
+      { name: 'Tóth Gábor', email: 'gabor@gmail.com', car: 'Ford Focus' ,password:"oktat3"},
+      { name: 'Szabó Béla', email: 'bela@gmail.com', car: 'Toyota Auris' ,password:"oktat4"},
+      { name: 'Horváth Éva', email: 'eva@gmail.com', car: 'Opel Astra' ,password:"oktat5"},
     ];
 
     for (const inst of instructors) {
@@ -138,7 +137,7 @@ export class UserService {
         create: {
           email: inst.email,
           name: inst.name,
-          password: commonPassword,
+          password: await argon2.hash(inst.password),
           role: 'INSTRUCTOR',
           car: inst.car,
         },
