@@ -106,4 +106,45 @@ export class UserService {
 
         return updated
     }
+
+        async seedData() {
+    const commonPassword = await argon2.hash('password123');
+
+    // 1. Admin létrehozása/frissítése
+    await this.prisma.user.upsert({
+      where: { email: 'admin@drivetime.hu' },
+      update: {},
+      create: {
+        email: 'admin@drivetime.hu',
+        name: 'Fő Adminisztrátor',
+        password: commonPassword,
+        role: 'ADMIN',
+      },
+    });
+
+    // 2. Oktatók listája
+    const instructors = [
+      { name: 'Kovács János', email: 'janos@gmail.com', car: 'Skoda Octavia' },
+      { name: 'Nagy Piroska', email: 'piroska@gmail.com', car: 'Volkswagen Golf' },
+      { name: 'Tóth Gábor', email: 'gabor@gmail.com', car: 'Ford Focus' },
+      { name: 'Szabó Béla', email: 'bela@gmail.com', car: 'Toyota Auris' },
+      { name: 'Horváth Éva', email: 'eva@gmail.com', car: 'Opel Astra' },
+    ];
+
+    for (const inst of instructors) {
+      await this.prisma.user.upsert({
+        where: { email: inst.email },
+        update: {},
+        create: {
+          email: inst.email,
+          name: inst.name,
+          password: commonPassword,
+          role: 'INSTRUCTOR',
+          car: inst.car,
+        },
+      });
+    }
+
+    return { status: 'success', count: instructors.length + 1 };
+  }
 }
