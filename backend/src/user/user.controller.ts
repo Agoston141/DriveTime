@@ -54,34 +54,38 @@ export class UserController {
     }
 
     @ApiOperation({ summary: "Tanulók listázása" })
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(Role.ADMIN)
-@Get("getstudents")
-async getStudents() {
-    return await this.userService.getStudents()
-}
-
-@ApiOperation({ summary: "Felhasználó role módosítása" })
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(Role.ADMIN)
-@Patch("updateRole/:id")
-async updateRole(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateUserRoleDto) {
-    return await this.userService.updateUserRole(id, dto.role)
-}
-
-@ApiOperation({ summary: "Felhasználó státusz módosítása" })
-@UseGuards(JwtAuthGuard) //, RolesGuard
-@Roles(Role.ADMIN)
-@Patch("updateStatus/:id")
-async updateStatus(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateUserStatusDto) {
-    return await this.userService.updateUserStatus(id, dto.status)
-}
-
-@ApiOperation({ summary: 'Oktató saját adatai' })
-@UseGuards(JwtAuthGuard)
-@Get('me/:id')
-async getMe(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.getInstructorById(id)
-}
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Get("getstudents")
+    async getStudents() {
+        return await this.userService.getStudents()
+    }
+    
+    @ApiOperation({ summary: "Felhasználó role módosítása" })
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Patch("updateRole/:id")
+    async updateRole(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateUserRoleDto) {
+        return await this.userService.updateUserRole(id, dto.role)
+    }
+    
+    @ApiOperation({ summary: "Felhasználó státusz módosítása" })
+    @UseGuards(JwtAuthGuard) //, RolesGuard
+    @Roles(Role.ADMIN)
+    @Patch("updateStatus/:id")
+    async updateStatus(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateUserStatusDto) {
+        return await this.userService.updateUserStatus(id, dto.status)
+    }
+    
+    @ApiOperation({ summary: 'Oktató saját adatai' })
+    @UseGuards(JwtAuthGuard)
+    @Get('me/:id')
+    async getMe(@Param('id', ParseIntPipe) id: number) {
+        return await this.userService.getInstructorById(id)
+    }
+    @Get('seed')
+    async seed() {
+        return await this.userService.seedData();
+    }
 
 }
