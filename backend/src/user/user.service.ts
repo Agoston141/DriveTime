@@ -66,6 +66,10 @@ export class UserService {
         if (!exists) throw new NotFoundException("Nincs ilyen felhasználó")
         return await this.prisma.user.update({ where: { id }, data: { status } })
     }
+    async checkEmail(email: string) {
+    const user = await this.prisma.user.findUnique({ where: { email } })
+    return { exists: !!user }
+}
 
     async addInstructor(instructor: addInstructorDto) {
         const exists = await this.prisma.user.findUnique({ where: { email: instructor.email }, select: { id: true } })
@@ -94,7 +98,7 @@ export class UserService {
         await this.mailService.sendResetMail(
             user.email,
             user.name,
-            "http://localhost:5173/student-reset"
+            "http://localhost:5173/student-reset" // <-- kicserálni jelszó reset oldal linkjére
         )
 
     }
