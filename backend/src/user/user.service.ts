@@ -94,7 +94,7 @@ export class UserService {
         await this.mailService.sendResetMail(
             user.email,
             user.name,
-            "http://google.com" // <-- kicserálni jelszó reset oldal linkjére
+            "http://localhost:5173/student-reset"
         )
 
     }
