@@ -22,6 +22,12 @@ export class UserController {
         return await this.userService.deleteUserbyid(id)
     }
 
+    @ApiOperation({ summary: 'Email ellenőrzése' })
+    @Get('checkEmail/:email')
+    async checkEmail(@Param('email') email: string) {
+    return await this.userService.checkEmail(email)
+    }
+
    // @UseGuards(JwtAuthGuard)
     @ApiOperation({summary:"Oktatók listázása"})
     @Get("getinstructors")
@@ -29,7 +35,7 @@ export class UserController {
         return await this.userService.getInstructors()
     }
 
-    @ApiOperation({summary:"Oktató frisstése"})
+    @ApiOperation({summary:"Oktató frissítése"})
   //  @UseGuards(JwtAuthGuard,RolesGuard)
     @Roles(Role.INSTRUCTOR)
     @Patch("update/:id")
@@ -85,10 +91,10 @@ export class UserController {
     }
 
     @ApiOperation({ summary: 'Jelszó visszaállitó email küldése'})
-    @Get("sendReset")
-    async sendReset(@Body('email') email:string){
-        return await this.userService.sendResetMail(email)
-    }
+    @Post("sendReset")  // ← GET helyett POST
+    async sendReset(@Body('email') email: string){
+    return await this.userService.sendResetMail(email)
+}
 
     @ApiOperation({ summary: 'Jelszó visszaállitása'})
     @Patch("reset")
