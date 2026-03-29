@@ -85,10 +85,10 @@ export class UserController {
     }
 
     @ApiOperation({ summary: 'Jelszó visszaállitó email küldése'})
-    @Get("sendReset")
-    async sendReset(@Body('email') email:string){
-        return await this.userService.sendResetMail(email)
-    }
+    @Post("sendReset")  // ← GET helyett POST
+    async sendReset(@Body('email') email: string){
+    return await this.userService.sendResetMail(email)
+}
 
     @ApiOperation({ summary: 'Jelszó visszaállitása'})
     @Patch("reset")

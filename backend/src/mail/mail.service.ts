@@ -16,7 +16,7 @@ export class MailService {
     async sendOraAllapot(userEmail: string, userName: string,date:string,status:string) {
         await this.mailerService.sendMail({
             to: userEmail,
-            subject: 'Óra állapotával kapcsolatos információk!.',
+            subject: 'Óra állapotával kapcsolatos információk!',
             template: './oraAllapot', 
             context: { name: userName,date: date,status:status},
         });
@@ -25,7 +25,7 @@ export class MailService {
         async sendResetMail(userEmail: string, userName: string,link:string) {
         await this.mailerService.sendMail({
             to: userEmail,
-            subject: 'Jelszó vissza állitása!.',
+            subject: 'Jelszó-visszaállítási kérelem',
             template: './resetPwd', 
             context: { name: userName,link:link},
         });
