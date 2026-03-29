@@ -96,7 +96,8 @@ export class UserController {
         return await this.userService.resetPwd(email,passwd)
     }
 
-    @Get('Adatbázis adatokkal való feltöltés')
+    @ApiOperation({summary:'Adatbázis adatokkal való feltöltés'})
+    @Get('seed')
     async seed() {
         return await this.userService.seedData();
     }
