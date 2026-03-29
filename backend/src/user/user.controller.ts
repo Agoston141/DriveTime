@@ -70,7 +70,7 @@ export class UserController {
     }
     
     @ApiOperation({ summary: "Felhasználó státusz módosítása" })
-    @UseGuards(JwtAuthGuard) //, RolesGuard
+    @UseGuards(JwtAuthGuard,RolesGuard) //, RolesGuard
     @Roles(Role.ADMIN)
     @Patch("updateStatus/:id")
     async updateStatus(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateUserStatusDto) {
@@ -83,7 +83,20 @@ export class UserController {
     async getMe(@Param('id', ParseIntPipe) id: number) {
         return await this.userService.getInstructorById(id)
     }
-    @Get('seed')
+
+    @ApiOperation({ summary: 'Jelszó visszaállitó email küldése'})
+    @Get("sendReset")
+    async sendReset(@Body('email') email:string){
+        return await this.userService.sendResetMail(email)
+    }
+
+    @ApiOperation({ summary: 'Jelszó visszaállitása'})
+    @Patch("reset")
+    async resetPwd(@Body("email") email:string,@Body("password") passwd:string){
+        return await this.userService.resetPwd(email,passwd)
+    }
+
+    @Get('Adatbázis adatokkal való feltöltés')
     async seed() {
         return await this.userService.seedData();
     }

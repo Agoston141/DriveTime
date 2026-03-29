@@ -87,22 +87,28 @@ export class UserService {
         return registerUser
     }
 
-    async resetPwd(id: number, password: string) {
-        const exists = await this.prisma.user.findUnique({ where: { id } })
-        if (!exists) throw new NotFoundException('Nincs ilyen felhasználó');
-
-        const hashedPasswd = await argon2.hash(password)
-
-        const updated = await this.prisma.user.update({
-            where: { id },
-            data: { password: hashedPasswd }
-        })
+    async sendResetMail(email:string) {
+        const user = await this.prisma.user.findUnique({where:{email:email}})
+        if(!user) throw new NotFoundException("Nincs ilyen felhasználó")
 
         await this.mailService.sendResetMail(
-            exists.email,
-            exists.name,
-            "https://www.youtube.com/"
+            user.email,
+            user.name,
+            "http://google.com" // <-- kicserálni jelszó reset oldal linkjére
         )
+
+    }
+
+    async resetPwd(email:string,passwd:string) {
+        const user = await this.prisma.user.findUnique({ where: { email:email } })
+        if (!user) throw new NotFoundException('Nincs ilyen felhasználó');
+
+        const hashedPasswd = await argon2.hash(passwd)
+
+        const updated = await this.prisma.user.update({
+            where: { email:email },
+            data: { password: hashedPasswd }
+        })
 
         return updated
     }
@@ -116,7 +122,7 @@ export class UserService {
       create: {
         email: 'admin@drivetime.hu',
         name: 'Fő Adminisztrátor',
-        password: commonPassword,
+        password: await argon2.hash("admin"),
         role: 'ADMIN',
       },
     });
