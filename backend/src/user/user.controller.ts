@@ -22,6 +22,12 @@ export class UserController {
         return await this.userService.deleteUserbyid(id)
     }
 
+    @ApiOperation({ summary: 'Email ellenőrzése' })
+    @Get('checkEmail/:email')
+    async checkEmail(@Param('email') email: string) {
+    return await this.userService.checkEmail(email)
+    }
+
    // @UseGuards(JwtAuthGuard)
     @ApiOperation({summary:"Oktatók listázása"})
     @Get("getinstructors")
@@ -29,7 +35,7 @@ export class UserController {
         return await this.userService.getInstructors()
     }
 
-    @ApiOperation({summary:"Oktató frisstése"})
+    @ApiOperation({summary:"Oktató frissítése"})
   //  @UseGuards(JwtAuthGuard,RolesGuard)
     @Roles(Role.INSTRUCTOR)
     @Patch("update/:id")
