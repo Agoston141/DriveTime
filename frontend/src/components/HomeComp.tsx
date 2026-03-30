@@ -21,7 +21,7 @@ const HomeComp = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{overflow: "hidden"}}>
       <header>
           <div className="openingText">   
             <h1>
