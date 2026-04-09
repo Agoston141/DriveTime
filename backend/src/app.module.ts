@@ -8,7 +8,7 @@ import { BookingModule } from './booking/booking.module';
 import { MailerModule } from "@nestjs-modules/mailer"
 import { UserModule } from './user/user.module';
 import { join } from 'path';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailModule } from './mail/mail.module';
 
 @Module({
