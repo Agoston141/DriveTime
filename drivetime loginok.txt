@@ -1,5 +1,7 @@
 SWAGGER.LOGINOK.
 
+docker run --name drivetimedb -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=drivetimedb mysql:8.4
+
 /auth/register:
 Az ADMIN a biztonság kedvéért STUDENT roleal jön létre. Prisma Studioban a roleot (enum)
 megváltoztatva teljesenkörűen hozzáférsz mindenhez.
