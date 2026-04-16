@@ -60,8 +60,8 @@ A Swagger felületen keresd a **(GET) /user/seed** végpontot, kattints a **Try 
 ### 2. Frontend
 
 ```bash
-pnpm i         # vagy: npm i
-pnpm run dev   # vagy: npm run dev
+npm i         # vagy: pnpm i
+npm run dev   # vagy: pnpm run dev
 ```
 
 ---
