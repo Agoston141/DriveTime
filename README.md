@@ -1,31 +1,71 @@
+#  DriveTime
+> Autósiskola időpontfoglaló program
 
-# DriveTime
-Autósiskola időpontfoglaló program
+---
 
-A program indításához, teszteléséhez az alábbiakat kell megtennünk:
+## Előfeltételek
 
- - A letöltött állományt ki kell csomagolni
- - A letöltött állományon belül két mappának kell lennie, Frontend és Backend címen, a mellékes vele járó fájlokkal együtt. 
- - Az állományt érdemes valamilyen IDE-vel (Visual Studio Code) megnyitni, majd betallózni a két mappát.
- - A program futtatásához szükséges engedélyezni PowerShell scripteket, illetve telepítenie kell a NodeJS futtatási keretrendszert.
- - Ahhoz hogy a backend kommunikálni tudjon a SQL szerverrel, szükségünk van a Docker Desktop nevű virtualizációs programra.
- - A fentiek telepítése után PowerShellből, vagy Git CLI-ben kell az alábbi parancsokat kiadni:
-	 - a Backend telepítése és konfigurálása és elindítása sorban: 
-		 Docker Desktop elindítása után adjuk ki PowerShell parancssorban az alábbiakat:
-		- docker run --name drivetimedb -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123 -e 		  MYSQL_DATABASE=drivetimedb mysql:8.4
-		 - pnpm i 
-		 - pnpx prisma generate 
-		 - pnpx prisma migrate dev
-		 - pnpm run start:dev  
+A program futtatásához az alábbi szoftverek szükségesek:
 
-A szerver sikeres elindítása után:
- - böngészőben nyissa meg az alábbi URL címet: http://localhost:3000/docs
- - Swagger felületen  (GET) /user/seed menüpontnál található "Try it out" -> "Execute" gombra rákattintva felöltheti séma adatokkal az adatbázist.
+- **Node.js** – JavaScript futtatási környezet
+- **pnpm** – csomagkezelő
+- **Docker Desktop** – a MySQL adatbázis virtualizálásához
+- **PowerShell** script futtatási engedély (Windows esetén)
 
-	 - a Frontend telepítése és konfigurálása és elindítása sorban: 
-		 -   npm i vagy pnpm i
-		 - 	 npm run dev vagy pnpm run dev
+---
 
+## Telepítés és indítás
 
-A DriveTime program telepítése, konfigurálása innentől véget ért. 
+> Ajánlott az állományt **Visual Studio Code**-dal megnyitni, és azon belül kezelni a Frontend és Backend mappákat.
 
+### 1. Backend
+
+**1.1. Docker-alapú adatbázis indítása**
+
+Nyisd meg a Docker Desktopot, majd PowerShellben futtasd:
+
+```bash
+docker run --name drivetimedb -d -p 3307:3306 \
+  -e MYSQL_ROOT_PASSWORD=123 \
+  -e MYSQL_DATABASE=drivetimedb \
+  mysql:8.4
+```
+
+**1.2. Függőségek telepítése és adatbázis migrálása**
+
+```bash
+pnpm i
+pnpx prisma generate
+pnpx prisma migrate dev
+```
+
+**1.3. Szerver indítása**
+
+```bash
+pnpm run start:dev
+```
+
+**1.4. Adatbázis feltöltése tesztadatokkal**
+
+A szerver sikeres elindítása után nyisd meg böngészőben:
+
+```
+http://localhost:3000/docs
+```
+
+A Swagger felületen keresd a **(GET) /user/seed** végpontot, kattints a **Try it out**, majd az **Execute** gombra.
+
+---
+
+### 2. Frontend
+
+```bash
+pnpm i         # vagy: npm i
+pnpm run dev   # vagy: npm run dev
+```
+
+---
+
+## Kész!
+
+A DriveTime program telepítése és konfigurálása ezzel véget ért.
