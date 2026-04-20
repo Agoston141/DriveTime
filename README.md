@@ -25,10 +25,7 @@ A program futtatásához az alábbi szoftverek szükségesek:
 Nyisd meg a Docker Desktopot, majd PowerShellben futtasd:
 
 ```bash
-docker run --name drivetimedb -d -p 3307:3306 \
-  -e MYSQL_ROOT_PASSWORD=123 \
-  -e MYSQL_DATABASE=drivetimedb \
-  mysql:8.4
+docker run --name drivetimedb -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=drivetimedb mysql:8.4
 ```
 
 **1.2. Függőségek telepítése és adatbázis migrálása**
